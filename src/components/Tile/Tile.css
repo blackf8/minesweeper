@@ -1,0 +1,42 @@
+.tile{
+  height:30px;
+  width:30px;
+  background-color: #F7C676;
+  place-content: center;
+  vertical-align: middle;
+}
+
+.bomb{
+  height:30px;
+  width:30px;
+  padding: 0;
+  display:grid;
+  place-content: center;
+  background-color: #808080;
+  background-image: url("/public/assets/images/mine.jfif");
+  background-size:27px;
+}
+
+.bombtext{
+  font-weight: 700;
+  font-size: 16px;
+  display:grid;
+  place-content: center;
+}
+
+.hidden{
+  height:30px;
+  width:30px;
+  background-color: #D0D5D9;
+}
+
+.hiddenflag{
+    height:30px;
+    width:30px;
+    padding: 0;
+    display:grid;
+    place-content: center;
+    background-image: url("/public/assets/images/flag.png");
+    background-color: #F72119;
+    background-size:27px;
+}

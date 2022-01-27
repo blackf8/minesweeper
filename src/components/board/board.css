@@ -1,0 +1,16 @@
+#board{
+  display:grid;
+  grid-template-columns: repeat(16,auto);
+  height:480px;
+  width:480px;
+}
+
+#board .tile{
+  width:30px;
+  height:30px;
+}
+
+#header {
+  display: grid;
+  place-content: center;
+}
