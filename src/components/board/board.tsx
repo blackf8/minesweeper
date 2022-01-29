@@ -50,6 +50,9 @@ for(let i = 0; i < board_size; i++){
   }
   temp_board[i] = temp_row;
 }
+let temp_row = {};
+temp_row[-1] = [undefined];
+temp_board[-1] = temp_row;
 const board_layout = temp_board;
 
 export default function board(){
@@ -111,7 +114,7 @@ export default function board(){
           manual = true;
         }
       }
-      board_state.push(<Tile key={[i,j]} x={i} y={j} adjacent_bombs={board_layout[i][j][0]} clickTile={clickTile} search={tile_data} manual_click={manual}/>);
+      board_state.push(<Tile key={[i,j]} x={i} y={j} adjacent_bombs={board_layout[i][j][0]} tile_data={board_layout[tile_data[1]][tile_data[2]][0]} clickTile={clickTile} search={tile_data} manual_click={manual}/>);
     }
   }
   let status = "Minesweeper";

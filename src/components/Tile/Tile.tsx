@@ -6,12 +6,13 @@ interface Coordinate{
   x: Number;
   y: Number;
   bombs: Array;
+  tile_data: Array;
   clickTitle: Function;
   search: Boolean;
 }
 
 
-export default function Tile({x, y, adjacent_bombs, clickTile, search, manual_click}:Coordinate){
+export default function Tile({x, y, adjacent_bombs, tile_data, clickTile, search, manual_click}:Coordinate){
   const [clicked, setClick] = useState("notclicked");
   //Check if current tile is a bomb.
   let is_bomb = false;
@@ -26,8 +27,11 @@ export default function Tile({x, y, adjacent_bombs, clickTile, search, manual_cl
   const clickHandler = (event) => {
     let eventName = event.type;
     if(eventName === 'click'){
-      setClick("click");
-      clickTile([true, x, y]); //AKA Search
+      console.log(tile_data)
+      if(tile_data != -1){
+        clickTile([true, x, y]); //AKA Search
+        setClick("click");
+      }
     }
     if(eventName === 'contextmenu' & clicked === "notclicked"){
         event.preventDefault();
