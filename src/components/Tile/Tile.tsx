@@ -27,7 +27,6 @@ export default function Tile({x, y, adjacent_bombs, tile_data, clickTile, search
   const clickHandler = (event) => {
     let eventName = event.type;
     if(eventName === 'click'){
-      console.log(tile_data)
       if(tile_data != -1){
         clickTile([true, x, y]); //AKA Search
         setClick("click");

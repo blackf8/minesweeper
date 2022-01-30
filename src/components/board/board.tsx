@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Tile from "../Tile/Tile.tsx";
 import "./board.css";
 
@@ -58,6 +58,7 @@ const board_layout = temp_board;
 export default function board(){
   let board_state = [];
   const [tile_data, clickTile] = useState([false,-1,-1]);
+  const ds_clicked = React.useRef({});
 
   //if a tile is clicked, recursively find all other tiles that should be clicked
   let recursive_tiles = {};
@@ -105,6 +106,8 @@ export default function board(){
       }
     }
   }
+  let temp_clicked_list = ds_clicked.current;
+  let new_len = 0;
   //Update board
   for(let i = 0; i < board_size; i++){
     for(let j = 0; j < board_size; j++){
@@ -112,21 +115,56 @@ export default function board(){
       if(recursive_tiles[i] != undefined ){
         if(recursive_tiles[i][j] != undefined){
           manual = true;
+          if(temp_clicked_list[i] != undefined){
+            if(temp_clicked_list[i][j] = false){
+              new_len = new_len + 1;
+            }else{
+              temp_clicked_list[i][j] = false;
+            }
+          }else{
+            let temp_recursive = {};
+            temp_recursive[j] = false;
+            temp_clicked_list[i] = temp_recursive;
+          }
         }
       }
       board_state.push(<Tile key={[i,j]} x={i} y={j} adjacent_bombs={board_layout[i][j][0]} tile_data={board_layout[tile_data[1]][tile_data[2]][0]} clickTile={clickTile} search={tile_data} manual_click={manual}/>);
     }
   }
+
+
+  let total_clicks = 0;
+  const handle = () => {
+    ds_clicked.current = (temp_clicked_list);
+    new_len = 0;
+
+  };
+  if(new_len > 0){
+    handle();
+  }
+
+  for(let i = 0; i < board_size; i++){
+    for(let j = 0; j < board_size; j++){
+      if(ds_clicked.current[i] != undefined){
+        if(ds_clicked.current[i][j] === false){
+          total_clicks = total_clicks + 1;
+        }
+      }
+    }
+  }
+
   let status = "Minesweeper";
   if(tile_data[0]===true){
     if(board_layout[tile_data[1]][tile_data[2]][0] === -1){
       status = "Game Over";
+    }else if(total_clicks === (board_size*board_size)-num_bombs){
+      status = "You Win";
     }
   }
-  //const hStyle = {display:grid;grid-template-columns: repeat(9,auto)};
+
   return <div>
           <div id = "header">
-            <h1>{status}</h1>
+            <h1>{status}: {total_clicks}/{(board_size*board_size)-num_bombs}</h1>
           </div>
           <div id = 'board'>{board_state}</div>
          </div>;
