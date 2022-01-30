@@ -1,5 +1,6 @@
 #board{
   display:grid;
+  place-content: center;
   grid-template-columns: repeat(16,auto);
   height:480px;
   width:480px;
@@ -13,5 +14,4 @@
 #header {
   display: grid;
   place-content: center;
-  width: 600px;
 }
